@@ -1,0 +1,103 @@
+.head-line {
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+}
+.head-line-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.head-line svg {
+    width: 500px;
+}
+
+.menus {
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* 잡기술!!! 화면 양 옆으로 튀어나올때 잡아주는 플렉스박스 기술 */
+    border-top: 1px solid #ebebeb;
+    border-bottom: 4px double black;
+}
+.menus button {
+    font-size: 11px;
+    border: none;
+    background: none;
+    margin: 5px;
+}
+.menus button:hover { /* 버튼에 마우스가 올라갔을때 */
+    background-color: beige;
+}
+
+.news-img-size {
+    max-width: 100%; /* 부모 넓이의 100%, 즉 4:8에서의 4부분만큼은 꽉 채운다는 뜻이다 */
+    max-height: 250px;
+}
+.news {
+    border-bottom: 2px solid black;
+}
+
+
+
+
+/* 햄버거 메뉴 관련 css들 */
+.side-menu {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(240, 218, 188);
+    overflow-x: hidden;
+    transition: 0.7s;
+    padding-top: 60px;
+  }
+  .side-menu-list button {
+    margin: 5px;
+    border: none;
+    background: none;
+    width: 120px;
+  }
+  .side-menu .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+    border: none;
+    background: none;
+  }
+  .side-menu-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .side-menu-list button:hover {
+    background-color: beige;
+    border-radius: 3px;
+  }
+
+
+  /* 사이드바 관련 css들 */
+  .icon-button {
+    padding: 8px 9px 9px;
+    margin-top: 5px;
+  }
+  .icon-button:hover {
+    background-color: beige;
+  }
+  .hide {
+    display: none;
+  }
+
+  @media screen and (max-width: 63rem) {
+    .hide {
+      display: inline;
+    }
+    .menus {
+      display: none;
+    }
+  }
+ 
