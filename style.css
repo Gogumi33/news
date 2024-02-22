@@ -19,9 +19,9 @@
     flex-wrap: wrap; /* 잡기술!!! 화면 양 옆으로 튀어나올때 잡아주는 플렉스박스 기술 */
     border-top: 1px solid #ebebeb;
     border-bottom: 4px double black;
+    /* justify-content: space-between; */
 }
 .menus button {
-    font-size: 11px;
     border: none;
     background: none;
     margin: 5px;
@@ -33,6 +33,8 @@
 .news-img-size {
     max-width: 100%; /* 부모 넓이의 100%, 즉 4:8에서의 4부분만큼은 꽉 채운다는 뜻이다 */
     max-height: 250px;
+    margin-right: 1em;
+    text-align: center;
 }
 .news {
     border-bottom: 2px solid black;
@@ -92,7 +94,7 @@
     display: none;
   }
 
-  @media screen and (max-width: 63rem) {
+  @media screen and (max-width: 63rem) { /* 제일중요!! - 반응형 시 일정크기로 줄어들면 탭들이 햄버거로 변하도록 */
     .hide {
       display: inline;
     }
