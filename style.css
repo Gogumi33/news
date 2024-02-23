@@ -1,5 +1,11 @@
+body {
+  margin: 0;
+  background-image: url("images/newsbackground.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
 .head-line {
-    margin-top: 1em;
     display: flex;
     justify-content: center;
 }
@@ -7,9 +13,15 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+
+    width:100%;
+    position: sticky; /* 위 탭부분은 스크롤 내려도 고정 */
+    top: 0; /* 이거까지 sticky */
+    left: 0;
+    background: #fff;
 }
 .head-line svg {
-    width: 500px;
+    width: 450px;
 }
 
 .menus {
@@ -25,6 +37,8 @@
     border: none;
     background: none;
     margin: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 .menus button:hover { /* 버튼에 마우스가 올라갔을때 */
     background-color: beige;
@@ -35,9 +49,18 @@
     max-height: 250px;
     margin-right: 1em;
     text-align: center;
+    object-fit: cover;
 }
 .news {
     border-bottom: 2px solid black;
+    width: 100%;
+    padding: 1.2em 1em;
+    margin-left: 0.5px;
+}
+.news-board {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 
