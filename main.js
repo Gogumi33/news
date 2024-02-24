@@ -10,32 +10,32 @@ let page = 1;
 const pageSize = 10; // 고정
 const groupSize = 5; // 고정.
 
-let url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`);
-//let url = new URL(`https://gogumi-news.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`); // 과제제출용.
+//let url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`);
+let url = new URL(`https://gogumi-news.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`); // 과제제출용.
 
 const getLatesNews = async ()=>{ // 에이싱크 - 비동기
     page = 1;
-    url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`);
+    //url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`);
 
     // 도메인 제출용 누나 API.
-    //url = new URL(`https://gogumi-news.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`);
+    url = new URL(`https://gogumi-news.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`);
 
     fetchAPI();
 };
 const getNewsByCategory = async (event)=>{ // 탭 누르면 카테고리별 렌더링.
     // 타깃의 텍스트콘텐츠가 카테고리명이므로.
     const category = event.target.textContent.toLowerCase();
-    url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`);
+    //url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`);
     // 도메인 제출용 누나 API.
-    //url = new URL(`https://gogumi-news.netlify.app/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`);
+    url = new URL(`https://gogumi-news.netlify.app/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`);
 
     fetchAPI();
 }
 const searchNews = async ()=>{ // 돋보기 누르고 검색 시 렌더링.
     const search = document.getElementById("search-input").value;
-    url = new URL(`https://newsapi.org/v2/top-headlines?q=${search}&country=kr&apiKey=${API_KEY}`);
+    //url = new URL(`https://newsapi.org/v2/top-headlines?q=${search}&country=kr&apiKey=${API_KEY}`);
     // 도메인 제출용 누나 API.
-    //url = new URL(`https://gogumi-news.netlify.app/top-headlines?q=${search}&country=kr&apiKey=${API_KEY}`);
+    url = new URL(`https://gogumi-news.netlify.app/top-headlines?q=${search}&country=kr&apiKey=${API_KEY}`);
 
     fetchAPI();
 }
