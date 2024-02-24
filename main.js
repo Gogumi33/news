@@ -4,35 +4,47 @@ const menus = document.querySelectorAll(".menus button");
 menus.forEach(menu=>menu.addEventListener("click", (event)=>getNewsByCategory(event)));
 let searchInput = document.getElementById("search-input");
 
+// 페이지네이션.
+let totalResults = 0;
+let page = 1;
+const pageSize = 10; // 고정
+const groupSize = 5; // 고정.
+
+//let url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`);
+let url = new URL(`https://gogumi-news.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`); // 과제제출용.
 
 const getLatesNews = async ()=>{ // 에이싱크 - 비동기
-    /////const url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`);
+    //url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`);
 
     // 도메인 제출용 누나 API.
-    const url = new URL(`https://gogumi-news.netlify.app/top-headlines?`);
+    url = new URL(`https://gogumi-news.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`);
 
     fetchAPI(url);
 };
 const getNewsByCategory = async (event)=>{ // 탭 누르면 카테고리별 렌더링.
     // 타깃의 텍스트콘텐츠가 카테고리명이므로.
     const category = event.target.textContent.toLowerCase();
-    /////const url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`);
+    //url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`);
     // 도메인 제출용 누나 API.
-    const url = new URL(`https://gogumi-news.netlify.app/top-headlines?&category=${category}`);
+    url = new URL(`https://gogumi-news.netlify.app/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`);
 
     fetchAPI(url);
 }
 const searchNews = async ()=>{ // 돋보기 누르고 검색 시 렌더링.
     const search = document.getElementById("search-input").value;
-    /////const url = new URL(`https://newsapi.org/v2/top-headlines?q=${search}&country=kr&apiKey=${API_KEY}`);
+    //url = new URL(`https://newsapi.org/v2/top-headlines?q=${search}&country=kr&apiKey=${API_KEY}`);
     // 도메인 제출용 누나 API.
-    const url = new URL(`https://gogumi-news.netlify.app/top-headlines?q=${search}`);
+    url = new URL(`https://gogumi-news.netlify.app/top-headlines?q=${search}&country=kr&apiKey=${API_KEY}`);
 
     fetchAPI(url);
 }
 
 const fetchAPI = async (url)=>{ // 코드 리팩토링 -> API호출하는 함수.
     try{
+        // &page = page와 같은뜻.
+        url.searchParams.set("page", page);
+        url.searchParams.set("pageSize", pageSize);
+        
         const response = await fetch(url);
         const data = await response.json();
          
@@ -43,7 +55,9 @@ const fetchAPI = async (url)=>{ // 코드 리팩토링 -> API호출하는 함수
             }
 
             newsList = data.articles;
+            totalResults = data.totalResults; // 추가.
             render();
+            paginationRender();
         }else{
             throw new Error(data.message);
         }
@@ -108,5 +122,40 @@ const openSearchBox = ()=>{
         inputArea.style.display = "inline";
     }
 };
+
+const paginationRender = ()=>{ // 스펠링 주의...!
+    // totalResult, page, pageSize, groupsize
+    // 위에것들로 totalPage, pageGroup, firstPage, lastPage 계산.
+
+    let totalPages = Math.ceil(totalResults/pageSize);
+    let pageGroup = Math.ceil(page/groupSize); // 올림 필수.
+    let lastPage = pageGroup * groupSize;
+    if(lastPage > totalPages){ // 5 안넘을 때.
+        lastPage = totalPages
+    }
+    let firstPage = lastPage-(groupSize-1)<=0?1 : lastPage - (groupSize-1);
+
+    let paginationHTML = ``;
+
+    for(let i=firstPage; i<=lastPage; i++){
+        paginationHTML += `<li class="page-item ${i===page ? "active" : ""}" onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>`
+    }
+    document.querySelector(".pagination").innerHTML = paginationHTML; // pagination 클래스에 innerHTML로 코드를 붙여주겠다.
+    // <nav aria-label="Page navigation example">
+    // <ul class="pagination">
+    //     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    //     <li class="page-item"><a class="page-link" href="#">1</a></li>
+    //     <li class="page-item"><a class="page-link" href="#">2</a></li>
+    //     <li class="page-item"><a class="page-link" href="#">3</a></li>
+    //     <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    // </ul>
+    // </nav>
+}
+const moveToPage = (pageNum)=>{
+    // 이 pageNum을 가지고 URL을 맞게 가져와야함.
+    page = pageNum; // 동적.
+    fetchAPI() // 뉴스를 다시 가져옴.
+}
+
 
 getLatesNews();

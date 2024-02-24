@@ -19,7 +19,7 @@
 
     <!-- 햄버거 사이드바 내용들 -->
     <div class="side-menu" id="mySidenav">
-      <button class="closebtn" onclick="closeNav()">&times;</button>
+      <button class="closebtn" onclick="closeNav()">&times;</button> <!-- %times는 x(닫기)아이콘 -->
       <div class="side-menu-list" id="menu-list">
         <button>General</button>
         <button>Sports</button>
@@ -38,7 +38,7 @@
 
         <!-- 햄버거 & 검색창 -->
         <div>
-          <i class="fas fa-bars hide icon-button" onclick="openNav()"></i>
+          <i class="fas fa-bars hide icon-button" onclick="openNav()"></i> <!-- 햄버거! hide는 css속성 -->
           <i class="fas fa-search icon-button" onclick="openSearchBox()"></i>
           <span id="input-area" style="display: none;">
               <input type="text" id="search-input" placeholder="search">
@@ -77,14 +77,20 @@
           <div class="col-lg-8">
               <h2>코알누 JS 엄청난 성원에 힘입어 학원진출!!!</h2>
               <p>
-                  코알누 JS 너무 알차고 재미있어요^^
+                  코알누 JS 너무 알차고 재미있어요^^ REACT도 기대할게요~!
               </p>
               <div>
                   By Gogumi 2024-02-21
               </div>
           </div>
-        </div>        
+        </div>
       </div>
+
+      <nav aria-label="Page navigation example">
+        <ul class="pagination"> <!-- pagination에 innerHTML로 쏴 줄거임. -->
+          
+        </ul>
+      </nav>
     </section>
 
     <script
