@@ -134,4 +134,9 @@ body {
   .pagination {
     justify-content: center;
     margin-top: 20px;
+    cursor: pointer;
+  }
+  .search-button {
+    background-color: beige;
+    border: none;
   }

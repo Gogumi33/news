@@ -10,36 +10,39 @@ let page = 1;
 const pageSize = 10; // 고정
 const groupSize = 5; // 고정.
 
-//let url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`);
-let url = new URL(`https://gogumi-news.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`); // 과제제출용.
+let url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`);
+//let url = new URL(`https://gogumi-news.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`); // 과제제출용.
 
 const getLatesNews = async ()=>{ // 에이싱크 - 비동기
-    //url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`);
+    page = 1;
+    url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`);
 
     // 도메인 제출용 누나 API.
-    url = new URL(`https://gogumi-news.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`);
+    //url = new URL(`https://gogumi-news.netlify.app/top-headlines?country=kr&apiKey=${API_KEY}`);
 
-    fetchAPI(url);
+    fetchAPI();
 };
 const getNewsByCategory = async (event)=>{ // 탭 누르면 카테고리별 렌더링.
     // 타깃의 텍스트콘텐츠가 카테고리명이므로.
     const category = event.target.textContent.toLowerCase();
-    //url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`);
+    url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`);
     // 도메인 제출용 누나 API.
-    url = new URL(`https://gogumi-news.netlify.app/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`);
+    //url = new URL(`https://gogumi-news.netlify.app/top-headlines?country=kr&category=${category}&apiKey=${API_KEY}`);
 
-    fetchAPI(url);
+    fetchAPI();
 }
 const searchNews = async ()=>{ // 돋보기 누르고 검색 시 렌더링.
     const search = document.getElementById("search-input").value;
-    //url = new URL(`https://newsapi.org/v2/top-headlines?q=${search}&country=kr&apiKey=${API_KEY}`);
+    url = new URL(`https://newsapi.org/v2/top-headlines?q=${search}&country=kr&apiKey=${API_KEY}`);
     // 도메인 제출용 누나 API.
-    url = new URL(`https://gogumi-news.netlify.app/top-headlines?q=${search}&country=kr&apiKey=${API_KEY}`);
+    //url = new URL(`https://gogumi-news.netlify.app/top-headlines?q=${search}&country=kr&apiKey=${API_KEY}`);
 
-    fetchAPI(url);
+    fetchAPI();
 }
 
-const fetchAPI = async (url)=>{ // 코드 리팩토링 -> API호출하는 함수.
+// ★let url 을 전역변수로 설정해 줌으로써, url을 따로 매개변수로 받을 필요가 없어짐.★
+
+const fetchAPI = async ()=>{ // 코드 리팩토링 -> API호출하는 함수.
     try{
         // &page = page와 같은뜻.
         url.searchParams.set("page", page);
@@ -154,8 +157,7 @@ const paginationRender = ()=>{ // 스펠링 주의...!
 const moveToPage = (pageNum)=>{
     // 이 pageNum을 가지고 URL을 맞게 가져와야함.
     page = pageNum; // 동적.
-    fetchAPI() // 뉴스를 다시 가져옴.
+    fetchAPI(); // 뉴스를 다시 가져옴.
 }
-
 
 getLatesNews();
