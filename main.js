@@ -7,7 +7,7 @@ let searchInput = document.getElementById("search-input");
 // 페이지네이션.
 let totalResults = 0;
 let page = 1;
-const pageSize = 10; // 고정
+const pageSize = 7; // 고정
 const groupSize = 5; // 고정.
 
 //let url = new URL(`https://newsapi.org/v2/top-headlines?country=kr&apiKey=${API_KEY}`);
@@ -139,24 +139,30 @@ const paginationRender = ()=>{ // 스펠링 주의...!
     let firstPage = lastPage-(groupSize-1)<=0?1 : lastPage - (groupSize-1);
 
     let paginationHTML = ``;
-
+    if (firstPage >= 6) {
+        // 맨 처음 페이지 : 1
+        paginationHTML = `<li class="page-item" onclick="moveToPage(1)"><a class="page-link">&lt&lt</a></li>
+        <li class="page-item" onclick="moveToPage(${page-1})"><a class="page-link">&lt</a></li>`;
+    }
     for(let i=firstPage; i<=lastPage; i++){
         paginationHTML += `<li class="page-item ${i===page ? "active" : ""}" onclick="moveToPage(${i})"><a class="page-link">${i}</a></li>`
     }
-    document.querySelector(".pagination").innerHTML = paginationHTML; // pagination 클래스에 innerHTML로 코드를 붙여주겠다.
-    // <nav aria-label="Page navigation example">
-    // <ul class="pagination">
-    //     <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-    //     <li class="page-item"><a class="page-link" href="#">1</a></li>
-    //     <li class="page-item"><a class="page-link" href="#">2</a></li>
-    //     <li class="page-item"><a class="page-link" href="#">3</a></li>
-    //     <li class="page-item"><a class="page-link" href="#">Next</a></li>
-    // </ul>
-    // </nav>
+    if (lastPage < totalPages)
+    paginationHTML += `<li class="page-item" onclick="moveToPage(${page+1})"><a class="page-link">&gt</a></li>
+    <li class="page-item" onclick="moveToPage(${totalPages})"><a class="page-link">&gt&gt</a></li>`;
+    // 맨 마지막 페이지 : totalPages
+    
+    
+    //document.querySelector(".pagination").innerHTML = paginationHTML; // pagination 클래스에 innerHTML로 코드를 붙여주겠다.
+    if (totalPages > 0 ) {
+        document.querySelector('.pagination').innerHTML = paginationHTML;
+    }
 }
 const moveToPage = (pageNum)=>{
     // 이 pageNum을 가지고 URL을 맞게 가져와야함.
     page = pageNum; // 동적.
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    
     fetchAPI(); // 뉴스를 다시 가져옴.
 }
 
